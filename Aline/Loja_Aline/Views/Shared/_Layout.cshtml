@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Cida Moda Infantil</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    
+    <link rel="stylesheet" href="~/css/carousel.css" />
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 0px)" href="~/css/small.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 500px)" href="~/css/medium.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 1050px)" href="~/css/large.css">
+
+</head>   
+    
+
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+   
+    
+        <div class="container">
+            <a href="https://www.facebook.com/Cida-moda-infantil-373997396519005/"><img src="~/Content/figuras/Facebook.png" width="50" /></a>
+            <a href="#"><img src="~/Content/figuras/carrinho.png" width="50" /></a>
+            <a href="#"><img src="~/Content/figuras/10.png" width="15" /> ITENS</a>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Cida Moda Infantil", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">PRODUTOS</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Saias", "Index", "Saia")</li>
+                            <li>@Html.ActionLink("Daminhas", "Index", "Daminha")</li>
+                            <li>@Html.ActionLink("Vestidos", "Index", "Vestido")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                     <li>
+                         @Html.ActionLink("Area do cliente", "IndexCliente", "Cliente")
+                     </li>
+                    <li>
+                        @Html.ActionLink("Gerenciamento", "Index", "Gerenciamento")
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>   
+
+    <!-- Page Content --> 
+    <section>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5"></h1>
+                    @*<p></p>*@
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

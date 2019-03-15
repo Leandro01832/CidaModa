@@ -1,0 +1,52 @@
+﻿@model IEnumerable<business.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h2>Clientes</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone.Celular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone.Celular)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdCliente }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdCliente }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdCliente })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+

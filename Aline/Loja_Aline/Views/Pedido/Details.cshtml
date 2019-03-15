@@ -1,0 +1,152 @@
+﻿@model business.Pedido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<h2>Detalhes</h2>
+
+<div class="jumbotron">
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Datapedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datapedido)
+        </dd>
+
+    </dl>
+
+    @{
+        foreach (var produto in Model.Produtos)
+        { 
+            <div class="text-black-50">
+                Atenção!!! Se Algum produto estiver com o status como <label style="color:red;">STATUS ENCOMENDA</label>
+                significa que o produto não tem estoque. Portanto para adquirir o produto igual ou similar entre em contato com a empresa
+                clicando @Html.ActionLink("AQUI.", "Contact", "Home", null, null)
+                Se Algum produto estiver com o status como <label style="color:forestgreen">STATUS CARRINHO</label>
+                significa que o produto tem estoque. Portanto somente os produtos com o status  <label style="color:forestgreen">STATUS CARRINHO</label>
+                é que vão ser pagos atraves do site. Orientamos que o pedido seja finalizado o mais rapido possível para evitar a mudança de status <label style="color:forestgreen">STATUS CARRINHO</label>
+                para <label style="color:red;">STATUS ENCOMENDA</label> por causa das constantes mudanças no estoque.
+
+            </div>
+
+            <h2>produtos</h2>
+
+            foreach (var medida in produto.Medida)
+            {
+                <p>                     
+                    @{
+                        if (medida.pedido_ == Model.IdPedido)
+                        {
+                            if (medida.encomenda)
+                            {
+                                <label>Status do produto: <label style="color:red;">STATUS ENCOMENDA</label></label>
+                            }
+                            else
+                            {
+                                <label>Status do produto: <label style="color:forestgreen">STATUS CARRINHO</label></label>
+                            }
+                        }
+
+                    }
+                </p>
+
+
+                        if (medida.pedido_ == Model.IdPedido)
+                        {
+                            <p><label>Codigo do produto: </label> @produto.IdPrduto</p>
+                            <p>
+                                <label>Imagem do produto: </label>
+                                <img src="@Url.Content(produto.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                            </p>
+                            <p><label>Preço da peça de roupa: </label> @produto.Preco</p>
+                            <p><label>Quantidate: </label> @produto.Medida.Count</p>
+                            <p><label>Idade: </label> @medida.Idade</p>
+                            <p><label>Quadril: </label> @medida.Quadril</p>
+                            <p><label>Ombro: </label> @medida.Ombro</p>
+                            <p><label>Tórax: </label>@medida.Torax</p>
+                            <p><label>Altura: </label>@medida.Altura</p>
+                            <p><label>Cintura: </label>@medida.Cintura</p>
+                            <p><label>COmprimento: </label>@medida.Comprimento</p>
+                            if (Model.Status != "Finalizado")
+                            {
+                                @Html.ActionLink("alterar medida", "Edit", "Medida", new { id = medida.IdMedida }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("remover produto", "Delete", "Medida", new { id = medida.IdMedida }, new { @class = "btn btn-primary" })
+                                    }
+                                }
+                            }
+                        }
+
+                        <hr />
+
+                        if (Model.Status != "Finalizado")
+                        {
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.TextBox("txtCep", null, new { @class = "form-control", placeholder = "Digite o Cep" })
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="btnsend" class="btn btn-success">Consultar frete</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12" id="divValor">
+
+                                </div>
+                            </div>
+
+                                @Html.ActionLink("Fazer a compra ", "Edit", "Pedido", new { id = Model.IdPedido }, null)
+                        }
+
+
+
+    }
+
+
+
+    @section Scripts {
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#btn_dados").click(function () {
+                $("#Pedidos, #DadosPessoais").fadeOut("slow")
+                $("#DadosPessoais").fadeIn("slow");
+
+            });
+
+            $("#btn_pedidos").click(function () {
+                $("#Pedidos, #DadosPessoais").fadeOut("slow")
+                $("#Pedidos").fadeIn("slow");
+            });
+        });
+
+        $("#btnsend").click(function () {
+            $.ajax({
+                url: '@Url.Action("CorreiosCalc","Sales")',
+                type: 'GET',
+                contentType: 'application/json',
+                data: { cep: $("#txtCep").val() },
+                success: function (result) {
+                    $("#divValor").html("<label> Valor do frete: R$ "
+                        + result[0]
+                        + "    Prazo de entrega " + result[1] + "</label> ")
+                },
+                error: function (xhr, exception) {
+                    alert("Erro ao calcular prazo!")
+                }
+            });
+        });
+
+        </script>
+    }
+
+
+</div>

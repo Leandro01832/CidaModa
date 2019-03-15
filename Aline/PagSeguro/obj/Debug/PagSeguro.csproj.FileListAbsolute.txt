@@ -1,0 +1,9 @@
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.frPrincipal.resources
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.GenerateResource.Cache
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.dll.config
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.Properties.Resources.resources
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csprojResolveAssemblyReference.cache

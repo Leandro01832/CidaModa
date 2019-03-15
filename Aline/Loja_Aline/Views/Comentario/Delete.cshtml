@@ -1,0 +1,43 @@
+﻿@model business.Comentario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="jumbotron">
+    <h2>Delete</h2>
+
+    <h3>Você deseja realmente deletar este comentário?</h3>
+    <div>
+        <h4>Comentario</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Produto.IdPrduto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Produto.IdPrduto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comentar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comentar)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

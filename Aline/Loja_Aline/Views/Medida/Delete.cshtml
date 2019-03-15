@@ -1,0 +1,88 @@
+﻿@model business.Medida
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Medida</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.IdPrduto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.IdPrduto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Idade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Idade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quadril)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quadril)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ombro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ombro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Torax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Torax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cintura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cintura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comprimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comprimento)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,36 @@
+﻿@model business.Comentario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="jumbotron">
+    <h2>Detalhes</h2>
+
+    <div>
+        <h4>Comentario</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Produto.IdPrduto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Produto.IdPrduto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comentar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comentar)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdComentario }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

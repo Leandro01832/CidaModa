@@ -1,0 +1,5 @@
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\database\bin\Debug\database.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\database\bin\Debug\database.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\database\obj\Debug\database.csprojResolveAssemblyReference.cache
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\database\obj\Debug\database.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\database\obj\Debug\database.pdb

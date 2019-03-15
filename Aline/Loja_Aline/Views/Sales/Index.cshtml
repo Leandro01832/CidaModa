@@ -1,0 +1,191 @@
+﻿@model business.Pedido
+
+@{
+    ViewBag.Title = "Index";
+}  
+
+@Scripts.Render("~/Scripts/jquery-1.10.2.js")
+@Scripts.Render("~/Scripts/Cep.js")
+
+<div class="jumbotron">
+    <h2>Local da entrega</h2> 
+    
+    <div class="row">
+        <div class="col-md-4">
+            @Html.TextBox("txtCep", null, new { @class = "form-control", placeholder = "Digite o Cep" })
+        </div>
+        <div class="col-md-4">
+            <button id="btnsend" class="btn btn-success">Consultar frete</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="divValor"></div>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Pedido", FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Endereco</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })            
+            @Html.HiddenFor(model => model.IdPedido)
+            @Html.HiddenFor(model => model.Cliente)
+            @Html.HiddenFor(model => model.Datapedido)
+            @Html.HiddenFor(model => model.Produtos)
+            @Html.HiddenFor(model => model.Endereco.IdEndereco)
+                        
+
+            <div class="form-group">
+                @Html.Label("Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Estado", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Cidade", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Cidade", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Bairro", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Bairro", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Rua", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Rua", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Rua, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Numero", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Numero", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Numero, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Cep, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Cep", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Cep, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div id="v">
+
+            </div>
+
+            <br /><br />
+            
+
+            @{
+                var valor = 0.0;
+                foreach (var produto in Model.Produtos)
+                {
+
+                    <div class="text-black-50">
+                        Atenção!!!
+                        Somente as medidas do produto que estiverem com o status como <label style="color:forestgreen">STATUS CARRINHO</label>
+                        é que vão ser pagos atraves do site. Orientamos que o pedido seja finalizado o mais rapido possível para evitar a mudança de status <label style="color:forestgreen">STATUS CARRINHO</label>
+                        para <label style="color:red;">STATUS ENCOMENDA</label> por causa das constantes mudanças no estoque.
+                    </div>
+
+                    <h2>Produto com o status <label style="color:forestgreen">STATUS CARRINHO</label>:</h2>
+
+                    
+                    foreach (var medida in produto.Medida)
+                    {
+                        if (!medida.encomenda && medida.pedido_ == Model.IdPedido)
+                        {
+                            valor += medida.Produto.Preco;
+                            <p><label>Codigo do produto: </label> @produto.IdPrduto</p>
+                            <p>
+                                <label>Imagem do produto: </label>
+                                <img src="@Url.Content(produto.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                            </p>
+                            <p><label>Preço da peça de roupa: </label> @produto.Preco</p>
+                            <p><label>Quantidate: </label> @produto.Medida.Count</p>
+                            <label>Status: <label style="color:forestgreen">STATUS CARRINHO</label></label>
+                            <p><label>Idade: </label> @medida.Idade</p>
+                            <p><label>Quadril: </label> @medida.Quadril</p>
+                            <p><label>Ombro: </label> @medida.Ombro</p>
+                            <p><label>Tórax: </label>@medida.Torax</p>
+                            <p><label>Altura: </label>@medida.Altura</p>
+                            <p><label>Cintura: </label>@medida.Cintura</p>
+                            <p><label>COmprimento: </label>@medida.Comprimento</p>
+                        }
+
+                    }
+                }
+               <p><label>Valor total dos produtos: <input type="text" value="@valor.ToString("F2")" readonly id="precoprodutos" /> </label></p>
+            <p><label>Valor total dos produtos mais o frete: <input type="text"  readonly id="precototal" name="precototal" /> </label></p>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Finalizar pedido" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    
+</div>  
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        var precoprod = document.getElementById("precoprodutos");
+        var frete = document.getElementById("ValorFrete");
+        var precototal = document.getElementById("precototal");
+
+        
+
+    $(document).ready(function () {
+        $("#btnsend").click(function () {
+            $.ajax({
+                url: '@Url.Action("CorreiosCalc","Sales")',
+                type: 'GET',
+                contentType: 'application/json',
+                data: {cep: $("#txtCep").val()},
+                success: function (result) {
+                    var v = parseFloat(result[0]) + parseFloat($("#precoprodutos").val());
+                    $("#divValor").html("<label id='valor'> Valor do frete: R$ "
+                        + result[0]
+                        + "    Prazo de entrega " + result[1] + "</label> ");
+                    $("#v").html("<label class='control-label col-md-3'>Valor do frete:  </label> <input class='form-control' id='ValorFrete' name='ValorFrete' type='text' value='" + result[0] + "' readonly> </input>");
+                    $("#precototal").val(v.toFixed(2));
+                },
+                error: function (xhr, exception) {
+                    alert("Erro ao calcular prazo!")
+                }
+            });
+
+            
+            
+            
+            
+        }); 
+    });          
+
+    </script>
+
+}
+
+
