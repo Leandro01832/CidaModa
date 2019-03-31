@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DataContextAline;
 using business;
 using Microsoft.AspNet.Identity;
 using PagSeguro;
-using System.Diagnostics;
 
 namespace Loja_Aline.Controllers
 {
@@ -126,16 +122,18 @@ namespace Loja_Aline.Controllers
                 Dados dados = new Dados();
                 var email = User.Identity.GetUserName();
                 dados.Email = email;
+                dados.data = DateTime.Now;
                 dados.Nome = db.Cliente.First(c => c.UserName == email).FirstName + " " + db.Cliente.First(c => c.UserName == email).LastName;
                 dados.DDD = db.Cliente.Include(c => c.Telefone).First(c => c.IdCliente == pedido.Cliente.IdCliente).Telefone.DDD_Celular;
                 dados.NumeroTelefone = db.Cliente.Include(c => c.Telefone).First(c => c.IdCliente == pedido.Cliente.IdCliente).Telefone.Celular;
-                dados.NumeroPedido = pedido.IdPedido;
+                dados.NumeroPedido = pedido.IdPedido;                
                 
                 dados.Valor = pedido.ValorPedido;
 
                 dados.MeuEmail = "leandroleanleo@gmail.com";
                 dados.MeuToken = "A37C25015C8446EE938DBB58D92F6BCF";
                 dados.TituloPagamento = "Pagamento";
+                dados.Referencia = "001";
 
                 dados = sPagSeguro.GerarPagamento(dados);
                 
@@ -152,7 +150,7 @@ namespace Loja_Aline.Controllers
                         if (!medida.encomenda && medida.pedido_ == pedido.IdPedido)
                         {
                             m++;
-                            if (m == produto.Medida.Count(med => med.pedido_ == pedido.IdPedido))
+                            if (m == produto.Medida.Count(med => med.pedido_ == pedido.IdPedido && !med.encomenda))
                             {
                                 medida.Produto.Estoque = medida.Produto.Estoque - m;
                                 m = 0;

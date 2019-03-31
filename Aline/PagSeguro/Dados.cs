@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PagSeguro
@@ -8,6 +9,7 @@ namespace PagSeguro
         // Seus dados de acesso ao PagSeguro
         [Key]
         public int DadosId { get; set; }
+        
         [NotMapped]
         public string MeuEmail { get; set; }
         [NotMapped]
@@ -31,5 +33,7 @@ namespace PagSeguro
         public string Status { get; set; }
         
         public string stringConexao { get; set; }
+
+        public DateTime data { get; set; }
     }
 }
