@@ -19,9 +19,9 @@ namespace Loja_Aline
     {
         public Task SendAsync(IdentityMessage message)
         {
-            var envia = "leandroleanleo@gmail.com";
-            var user = "leandroleanleo@gmail.com";
-            var pass = "leandro01083832";
+            var envia = "";
+            var user = "";
+            var pass = "";
 
             System.Net.NetworkCredential credencial = new System.Net.NetworkCredential(user, pass);
 

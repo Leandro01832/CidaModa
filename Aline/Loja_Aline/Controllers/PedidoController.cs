@@ -252,8 +252,8 @@ namespace Loja_Aline.Controllers
                 
                 dados.Valor = pedido.ValorPedido;
 
-                dados.MeuEmail = "leandro91luis@gmail.com";
-                dados.MeuToken = "ffd81aee-ddac-42c9-b6ff-d1cc90f8eab42ee5fca7432694c690d3819c29f774714bd9-609f-4b91-9704-6df2d8c0e2e4";
+                dados.MeuEmail = "";
+                dados.MeuToken = "";
                 dados.TituloPagamento = "Pagamento";
                 dados.Referencia = "Roupas";
 

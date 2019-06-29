@@ -104,8 +104,8 @@ namespace Loja_Aline.Controllers
 
             Dados dado = new Dados
             {
-                MeuToken = "ffd81aee-ddac-42c9-b6ff-d1cc90f8eab42ee5fca7432694c690d3819c29f774714bd9-609f-4b91-9704-6df2d8c0e2e4",
-                MeuEmail = "leandro91luis@gmail.com",
+                MeuToken = "",
+                MeuEmail = "",
                 CodigoAcesso = id
             };
 
