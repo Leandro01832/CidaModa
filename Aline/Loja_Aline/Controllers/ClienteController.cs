@@ -93,11 +93,21 @@ namespace Loja_Aline.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            var email = User.Identity.GetUserName();
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Cliente cliente = db.Cliente.Find(id);
+
+            if(cliente.UserName != email && email != "cidaescolastico24@gmail.com")
+            {
+                return RedirectToAction("IndexCliente", "Cliente", null);
+            }
+
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -119,21 +129,13 @@ namespace Loja_Aline.Controllers
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexCliente", "Cliente", null);
             }
             ViewBag.IdCliente = new SelectList(db.Endereco, "IdEndereco", "Estado", cliente.IdCliente);
             ViewBag.IdCliente = new SelectList(db.Telefone, "IdTelefone", "Celular", cliente.IdCliente);
             return View(cliente);
         }
-
-        public string Link(int id)
-        {
-            Dados dados = db.Dados.First(d => d.NumeroPedido == id);
-            var link = dados.stringConexao;
-
-            return link;
-        }
-
+        
         // GET: Cliente/Delete/5
         [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Delete(int? id)

@@ -11,7 +11,7 @@ using business;
 
 namespace Loja_Aline.Controllers
 {
-    [Authorize]
+    
     public class EnderecoController : Controller
     {
         private BD db = new BD();
@@ -68,6 +68,7 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Endereco/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,6 +89,7 @@ namespace Loja_Aline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "IdEndereco,Estado,Cidade,Bairro,Rua,Numero,Cep")] Endereco endereco)
         {
             if (ModelState.IsValid)

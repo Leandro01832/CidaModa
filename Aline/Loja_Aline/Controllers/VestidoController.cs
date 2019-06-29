@@ -41,6 +41,21 @@ namespace Loja_Aline.Controllers
             return View(vestido);
         }
 
+        [AllowAnonymous]
+        public ActionResult Imagem(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Imagem imagem = db.Imagem.Find(id);
+            if (imagem == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(imagem);
+        }
+
         // GET: Vestido/Create
         [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Create()

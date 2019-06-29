@@ -1,0 +1,80 @@
+﻿@model business.ItemPedido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="jumbotron">
+    <h2>Detalhes</h2>
+
+    <div>
+        <h4>ItemPedido</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.pedido.IdPedido)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.pedido.IdPedido)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.produto.Imagem)
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.produto.Imagem != null)
+                    {
+                        <img src="@Url.Content(Model.produto.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                    }
+                }
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantidade)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Medida)
+            </dt>
+            
+
+            <dd>
+                @foreach (var medida in Model.Medida)
+            {
+                var status = "";
+                if (medida.encomenda)
+                {
+                    status = "encomenda";
+                }
+                else
+                {
+                    status = "compra";
+                }
+
+                <p><label>Encomenda:</label> @status</p>
+                <p><label>Idade:</label> @medida.Idade</p>
+                <p><label>Cintura:</label> @medida.Cintura</p>
+                <p><label>Comprimento:</label> @medida.Comprimento</p>
+                <p><label>Altura:</label> @medida.Altura</p>
+                <p><label>Torax:</label> @medida.Torax</p>
+                <p><label>Ombro:</label> @medida.Ombro</p>
+                <p><label>Quadril:</label> @medida.Quadril</p>
+                }
+            </dd>
+
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdItem }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

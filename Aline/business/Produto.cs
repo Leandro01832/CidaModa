@@ -12,17 +12,17 @@ namespace business
     [Table("Produto")]
     public class Produto
     {
-        [Key]
+        [Key]     
+        [Display(Name ="Codigo do produto")]   
         public int IdPrduto { get; set; }
-        public int Estoque { get; set; }
         [DataType(DataType.ImageUrl)]
         public string Imagem { get; set; }
-        public Double Preco { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImagemFile { get; set; }
-        public virtual ICollection<Pedido> Pedido { get; set; }
-        public virtual ICollection<Medida> Medida { get; set; }
+        public int Estoque { get; set; }
+        public Double Preco { get; set; }
         public virtual ICollection<Comentario> Comentario { get; set; }
+        public virtual ICollection<Imagem> Imagens { get; set; }
 
     }   
 }

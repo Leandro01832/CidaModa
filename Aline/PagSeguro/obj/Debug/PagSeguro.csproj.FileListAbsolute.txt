@@ -6,4 +6,5 @@ C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\P
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.Properties.Resources.resources
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.dll
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.pdb
-C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csprojResolveAssemblyReference.cache
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csprojResolveAssemblyReference.cache
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.CoreCompileInputs.cache

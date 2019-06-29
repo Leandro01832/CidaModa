@@ -12,3 +12,6 @@ C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Debug\business.pdb
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Debug\PagSeguro.dll
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Debug\PagSeguro.pdb
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Debug\business.dll.config
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Debug\PagSeguro.dll.config
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\obj\Debug\DataContextAline.csproj.CoreCompileInputs.cache

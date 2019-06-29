@@ -14,7 +14,8 @@ namespace PagSeguro
             dados.stringConexao = "";
             try
             {
-                //URI de checkout.
+                //URI de checkout.                
+
                 string uri = @"https://ws.pagseguro.uol.com.br/v2/checkout";
                 //Conjunto de parâmetros/formData.
                 System.Collections.Specialized.NameValueCollection postData =
@@ -40,6 +41,7 @@ namespace PagSeguro
                 //Webclient faz o post para o servidor de pagseguro.
                 using (WebClient wc = new WebClient())
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
                     //Informa header sobre URL.
                     wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                     //Faz o POST e retorna o XML contendo resposta do servidor do pagseguro.
@@ -74,6 +76,7 @@ namespace PagSeguro
         {
             if (dados == null) return null;
             Dados retorno = new Dados();
+            retorno.CodigoAcesso = dados.CodigoAcesso;
             try
             {
                 //uri de consulta da transação.

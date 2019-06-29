@@ -1,0 +1,17 @@
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\DataContextAline.dll.config
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\DataContextAline.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\DataContextAline.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\business.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\EntityFramework.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\PagSeguro.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\business.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\PagSeguro.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\EntityFramework.xml
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\obj\Release\DataContextAline.csprojResolveAssemblyReference.cache
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\obj\Release\DataContextAline.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\obj\Release\DataContextAline.pdb
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Release\business.dll.config
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Release\PagSeguro.dll.config
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\obj\Release\DataContextAline.csproj.CoreCompileInputs.cache

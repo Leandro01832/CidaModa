@@ -29,5 +29,9 @@ namespace Loja_Aline.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<PagSeguro.Dados> Dados { get; set; }
+
+       // public DbSet<business.Destino> Destino { get; set; }
     }
 }

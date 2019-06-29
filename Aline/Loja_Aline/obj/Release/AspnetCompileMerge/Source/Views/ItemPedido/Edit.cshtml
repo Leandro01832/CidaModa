@@ -1,0 +1,110 @@
+﻿@model business.ItemPedido
+
+@{
+    ViewBag.Title = "Edit";
+    var error = Request["error"];
+    var error2 = Request["error2"];
+    var val = ViewBag.produto_;
+}
+
+<h2>Editar</h2>
+
+<div class="jumbotron">
+    
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>ItemPedido</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(item => item.IdItem)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pedido_, "pedido_", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("pedido_", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.pedido_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.produto_, "produto_", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("produto_", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.produto_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Salvar" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Ir para a area do cliente", "IndexCliente", "Cliente", null, null)
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#botao").click(function () {
+            $("#Medidas").fadeIn("slow");
+
+            var v = $("#quantidade").val();
+            var e = $("#estoque").val();
+            var texto = "";
+
+            for (var i = 1; i <= v; i++)
+            {
+                texto = texto + "<p> medida nº " + i + ": </p>";
+
+                if (i > e)
+                {
+                    texto = texto + "<p><label>Status Encomenda da medida nº " + i + ":</label><input type='text' id='encomenda" + i + "' name='encomenda" + i + "' value='sim' readonly></p>";
+                }
+                else
+                {
+                    texto = texto + "<p><label>Status Encomenda da medida nº " + i + ":</label><input type='number' id='encomenda" + i + "' name='encomenda" + i + "' value='nao' readonly></p>";
+                }
+                texto = texto  +
+                    "<p><label>Idade:</label><input type='number' id='idade" + i + "' name='idade" + i + "'></p>" +
+                    "<p><label>Quadril:</label><input type='number' id='quadril" + i + "' name='quadril" + i + "'></p>" +
+                    "<p><label>Ombro:</label><input type='number' id='ombro" + i + "' name='ombro" + i + "'></p>" +
+                    "<p><label>Tórax:</label><input type='number' id='torax" + i + "' name='torax" + i + "'></p>" +
+                    "<p><label>Altura:</label><input type='number' id='altura" + i + "' name='altura" + i + "'></p>" +
+                    "<p><label>Cintura:</label><input type='number' id='cintura" + i + "' name='cintura" + i + "'></p>" +
+                    "<p><label>Comprimento:</label><input type='number' id='comprimento" + i + "' name='comprimento" + i + "'></p>";
+
+                $("#Medidas").html(texto);
+            }
+
+        });
+    });
+
+    </script>
+
+}

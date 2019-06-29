@@ -1,0 +1,45 @@
+﻿@model business.ItemPedido
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Deseja realmente remover este item?</h3>
+<div>
+    <h4>Item do pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.produto.Imagem)
+        </dt>
+
+        <dd>
+            @{
+                if (Model.produto.Imagem != null)
+                {
+                    <img src="@Url.Content(Model.produto.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("voltar para a area do cliente", "IndexCliente", "Cliente", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

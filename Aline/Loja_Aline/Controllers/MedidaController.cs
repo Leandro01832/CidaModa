@@ -12,18 +12,21 @@ using Microsoft.AspNet.Identity;
 
 namespace Loja_Aline.Controllers
 {
+    
     public class MedidaController : Controller
     {
         private BD db = new BD();
 
         // GET: Medida
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Index()
         {
-            var medida = db.Medida.Include(m => m.Produto);
+            var medida = db.Medida.Include(m => m.Item);
             return View(medida.ToList());
         }
 
         // GET: Medida/Details/5
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,10 +42,10 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Medida/Create
-        [Authorize]
-        public ActionResult Create(int id)
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
+        public ActionResult Create()
         {
-            ViewBag.produto_ = new SelectList(db.Produto.Where(p => p.IdPrduto == id), "IdPrduto", "IdPrduto");
+            ViewBag.item_ = new SelectList(db.ItemPedido, "IdItem", "IdItem");
             return View();
         }
 
@@ -51,63 +54,17 @@ namespace Loja_Aline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult Create([Bind(Include = "IdMedida,encomenda,Idade,Quadril,Ombro,Torax,Altura,Cintura,Comprimento,produto_")] Medida medida)
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
+        public ActionResult Create([Bind(Include = "IdMedida,encomenda,Idade,Quadril,Ombro,Torax,Altura,Cintura,Comprimento,item_")] Medida medida)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var email = User.Identity.GetUserName();
-                    var quantidade = 0;
-                    var cliente = db.Cliente.First(e => e.UserName == email);
-
-                    db.Medida.Add(medida);
-                    db.SaveChanges();
-
-                    if (cliente.Pedidos.Count == 0 || cliente.Pedidos.Last().Status == "Finalizado")
-                    {
-                        cliente.Pedidos.Add(new Pedido { Datapedido = DateTime.Now, Endereco = new Endereco { }, Status = "Nao finalizado" });
-                        cliente.Pedidos.Last().Produtos = new List<Produto>();
-                    }                    
-
-                    foreach(var produto in cliente.Pedidos.Last().Produtos)
-                    {
-                        quantidade += produto.Medida.Count(m => m.pedido_ == cliente.Pedidos.Last().IdPedido);
-
-                        if(quantidade >= 10)
-                        {
-                            cliente.Pedidos.Add(new Pedido { Datapedido = DateTime.Now, Endereco = new Endereco { }, Status = "Nao finalizado" });
-                            cliente.Pedidos.Last().Produtos = new List<Produto>();
-                        }
-                    }
-
-                    cliente.Pedidos.Last().Produtos.Add(db.Produto.First(p => p.IdPrduto == medida.produto_));
-                    if(db.Produto.First(p => p.IdPrduto == medida.produto_).Estoque < db.Produto.First(p => p.IdPrduto == medida.produto_).Medida.Count(m => m.pedido_ == cliente.Pedidos.Last().IdPedido))
-                    {
-                        medida.encomenda = true;
-                        medida.pedido_ = cliente.Pedidos.Last().IdPedido;
-                        db.Entry(medida).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        medida.pedido_ = cliente.Pedidos.Last().IdPedido;
-                        db.Entry(medida).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                    
-
-                    return RedirectToAction("IndexCliente", "Cliente");
-                }
-                catch (Exception)
-                {
-                    ViewBag.error = "Erro de identidade";
-                    return RedirectToAction("Create", "Cliente");
-                }
+                db.Medida.Add(medida);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            ViewBag.produto_ = new SelectList(db.Produto, "IdPrduto", "IdPrduto", medida.produto_);
+            ViewBag.item_ = new SelectList(db.ItemPedido, "IdItem", "IdItem", medida.itemPedido_);
             return View(medida);
         }
 
@@ -116,29 +73,23 @@ namespace Loja_Aline.Controllers
         public ActionResult Edit(int? id)
         {
             var email = User.Identity.GetUserName();
-            if (email != "cidaescolastico24@gmail.com")
-            {
-                try
-                {
-                    var cliente = db.Cliente.First(e => e.UserName == email);
-                    var ped = cliente.Pedidos.First(p => p.Medidas.First(m => m.IdMedida == id).IdMedida == id);
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("IndexCliente", "Cliente");
-                }
-            }
-           
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Medida medida = db.Medida.Find(id);
+            
+            if(medida.Item.pedido.Cliente.UserName != email && email != "cidaescolastico24@gmail.com")
+            {
+                return RedirectToAction("IndexCliente", "Cliente");
+            }
+
             if (medida == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.produto_ = new SelectList(db.Produto, "IdPrduto", "IdPrduto", medida.produto_);
+            ViewBag.item_ = new SelectList(db.ItemPedido, "IdItem", "IdItem", medida.itemPedido_);
             return View(medida);
         }
 
@@ -148,15 +99,15 @@ namespace Loja_Aline.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "IdMedida,Idade,Quadril,Ombro,Torax,Altura,Cintura,Comprimento,produto_")] Medida medida)
+        public ActionResult Edit([Bind(Include = "IdMedida,encomenda,Idade,Quadril,Ombro,Torax,Altura,Cintura,Comprimento,itemPedido_")] Medida medida)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(medida).State = EntityState.Modified;
+                db.Entry(medida).State = EntityState.Modified;                
                 db.SaveChanges();
                 return RedirectToAction("IndexCliente", "Cliente", null);
             }
-            ViewBag.produto_ = new SelectList(db.Produto, "IdPrduto", "IdPrduto", medida.produto_);
+            ViewBag.itemPedido_ = new SelectList(db.ItemPedido, "IdItem", "IdItem", medida.itemPedido_);
             return View(medida);
         }
 
@@ -165,24 +116,17 @@ namespace Loja_Aline.Controllers
         public ActionResult Delete(int? id)
         {
             var email = User.Identity.GetUserName();
-            if (email != "cidaescolastico24@gmail.com")
-            {
-                try
-                {
-                    var cliente = db.Cliente.First(e => e.UserName == email);
-                    var ped = cliente.Pedidos.First(p => p.Medidas.First(m => m.IdMedida == id).IdMedida == id);
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("IndexCliente", "Cliente");
-                }
-            }
-           
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Medida medida = db.Medida.Find(id);
+            if (medida.Item.pedido.Cliente.UserName != email && email != "cidaescolastico24@gmail.com")
+            {
+                return RedirectToAction("IndexCliente", "Cliente");
+            }
+
             if (medida == null)
             {
                 return HttpNotFound();

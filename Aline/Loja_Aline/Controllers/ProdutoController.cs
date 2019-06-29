@@ -11,6 +11,7 @@ using business;
 
 namespace Loja_Aline.Controllers
 {
+    [Authorize(Users = "cidaescolastico24@gmail.com")]
     public class ProdutoController : Controller
     {
         private BD db = new BD();
@@ -22,6 +23,7 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Produto/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -117,21 +119,21 @@ namespace Loja_Aline.Controllers
 
                 //atualizar status dos produtos
 
-                foreach(var pedido in produto.Pedido)
+                foreach(var pedido in db.Pedido.ToList())
                 {
                     if(pedido.Status == "Nao finalizado")
                     {
-                        foreach(var medida in pedido.Medidas)
+                        foreach(var medida in db.Medida.ToList())
                         {
-                            if(medida.produto_ == produto.IdPrduto)
+                            if(medida.Item.produto_ == produto.IdPrduto)
                             {
-                                if(medida.Produto.Estoque < produto.Medida.Count(m => m.pedido_ == pedido.IdPedido))
+                                if(medida.Item.produto.Estoque < medida.Item.Medida.Count(m => m.Item.pedido_ == pedido.IdPedido))
                                 {
-                                    for(int i = 0; i < medida.Produto.Estoque; i++)
+                                    for(int i = 0; i < medida.Item.produto.Estoque; i++)
                                     {
                                         try
                                         {
-                                            var medid = db.Medida.First(m => m.produto_ == produto.IdPrduto && m.encomenda == true && m.Produto.Estoque < produto.Medida.Count(medi => medi.pedido_ == pedido.IdPedido));
+                                            var medid = db.Medida.First(m => m.Item.produto_ == produto.IdPrduto && m.encomenda == true && m.Item.produto.Estoque < medida.Item.Medida.Count(medi => medi.Item.pedido_ == pedido.IdPedido));
                                             medid.encomenda = false;
                                             db.Entry(medid).State = EntityState.Modified;
                                             db.SaveChanges();

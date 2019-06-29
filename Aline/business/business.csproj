@@ -53,7 +53,10 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Comentario.cs" />
     <Compile Include="Daminha.cs" />
+    <Compile Include="Destino.cs" />
     <Compile Include="Endereco.cs" />
+    <Compile Include="Imagem.cs" />
+    <Compile Include="ItemPedido.cs" />
     <Compile Include="Medida.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Produto.cs" />

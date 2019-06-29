@@ -1,0 +1,40 @@
+﻿@model business.Imagem
+
+@{
+    ViewBag.Title = "Apagar";
+}
+
+<h2>Apagar</h2>
+
+<h3>Deseja realmente apagar esta imagem?</h3>
+<div>
+    <h4>Imagem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.Imagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.Imagem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagemProduto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagemProduto)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="apagar" class="btn btn-default" /> |
+            @Html.ActionLink("voltar para lista", "Index")
+        </div>
+    }
+</div>

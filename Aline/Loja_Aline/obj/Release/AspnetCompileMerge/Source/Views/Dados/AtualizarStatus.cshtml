@@ -1,0 +1,47 @@
+﻿@model PagSeguro.Dados
+
+@{
+    ViewBag.Title = "AtualizarStatus";
+}
+
+<h2>AtualizarStatus</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+	<h4>Dados</h4>
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	@Html.HiddenFor(model => model.DadosId)
+	@Html.HiddenFor(model => model.NumeroPedido)
+	@Html.HiddenFor(model => model.Nome)
+	@Html.HiddenFor(model => model.Email)
+	@Html.HiddenFor(model => model.DDD)
+	@Html.HiddenFor(model => model.NumeroTelefone)
+	@Html.HiddenFor(model => model.DadosId)
+	@Html.HiddenFor(model => model.Valor)
+	@Html.HiddenFor(model => model.CodigoAcesso)
+	@Html.HiddenFor(model => model.Referencia)
+	@Html.HiddenFor(model => model.DadosId)
+	@Html.HiddenFor(model => model.TituloPagamento)
+	@Html.HiddenFor(model => model.Status)
+	@Html.HiddenFor(model => model.stringConexao)
+	@Html.HiddenFor(model => model.data)
+
+	
+
+	
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Atualizar status" class="btn btn-default" />
+		</div>
+	</div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

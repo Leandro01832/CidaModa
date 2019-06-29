@@ -12,19 +12,20 @@ using Microsoft.AspNet.Identity;
 
 namespace Loja_Aline.Controllers
 {
-    [Authorize(Users = "cidaescolastico24@gmail.com")]
+    
     public class ComentarioController : Controller
     {
         private BD db = new BD();
 
         // GET: Comentario
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Index()
-        {
-            var comentario = db.Comentario.Include(c => c.Produto);
-            return View(comentario.ToList());
+        {            
+            return View(db.Comentario.ToList());
         }
 
         // GET: Comentario/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -69,6 +70,7 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Comentario/Edit/5
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -89,6 +91,7 @@ namespace Loja_Aline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Edit([Bind(Include = "IdComentario,Comentar,produto_2")] Comentario comentario)
         {
             if (ModelState.IsValid)
@@ -120,6 +123,7 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Comentario/Delete/5
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -137,6 +141,7 @@ namespace Loja_Aline.Controllers
         // POST: Comentario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult DeleteConfirmed(int id)
         {
             Comentario comentario = db.Comentario.Find(id);

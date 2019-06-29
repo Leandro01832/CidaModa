@@ -7,6 +7,7 @@ using DataContextAline;
 using business;
 using Microsoft.AspNet.Identity;
 using PagSeguro;
+using System.Collections.Generic;
 
 namespace Loja_Aline.Controllers
 {
@@ -51,9 +52,34 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Pedido/Create
-        public ActionResult Create()
+        [Authorize]
+        public ActionResult Create(int id)
         {
-            return View();
+            var email = User.Identity.GetUserName();
+            Cliente cliente = null;
+
+            try
+            {
+                cliente = db.Cliente.First(e => e.UserName == email);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "Cliente");
+            }
+
+            if (cliente.Pedidos.Count == 0 || cliente.Pedidos.Last().Status == "Finalizado")
+            {
+                cliente.Pedidos.Add(new Pedido { Datapedido = DateTime.Now, Endereco = new Endereco { }, Status = "Nao finalizado" });
+                cliente.Pedidos.Last().Itens = new List<ItemPedido>();
+            }
+
+            db.SaveChanges();
+
+            ViewBag.produto_ = db.Produto.Find(id).IdPrduto;
+            ViewBag.estoque = db.Produto.Find(id).Estoque;
+            ViewBag.pedido_ = new SelectList(db.Pedido, "IdPedido", cliente.Pedidos.Last().IdPedido.ToString());
+
+            return View(cliente.Pedidos.Last());
         }
 
         // POST: Pedido/Create
@@ -61,13 +87,92 @@ namespace Loja_Aline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "IdPedido,Datapedido")] Pedido pedido)
         {
             if (ModelState.IsValid)
             {
-                db.Pedido.Add(pedido);
+                var Itens = db.Pedido.First(m => m.IdPedido == pedido.IdPedido).Itens;
+
+                int id = int.Parse(Request["roupa"]);
+                ItemPedido item = new ItemPedido();
+                item.produto_ = id;
+                item.pedido_ = pedido.IdPedido;
+                item.Quantidade = int.Parse(Request["quantidade"]);
+
+                foreach(var it in Itens)
+                {
+                    if (it.produto.IdPrduto == id)
+                    {
+                        return RedirectToAction("Create", "Pedido", new { error2 = "Este produto ja foi adicionado ao seu carrinho. Se quiser remove-lo acesse o link area do cliente e altere seu pedido!!!" });
+                    }
+                }
+
+                for (int i = 1; i <= item.Quantidade; i++)
+                {
+                    try
+                    {
+                        var Idade = int.Parse(Request["idade" + i.ToString()]);
+                        var Altura = int.Parse(Request["altura" + i.ToString()]);
+                        var Ombro = int.Parse(Request["ombro" + i.ToString()]);
+                        var Quadril = int.Parse(Request["quadril" + i.ToString()]);
+                        var Torax = int.Parse(Request["torax" + i.ToString()]);
+                        var Cintura = int.Parse(Request["cintura" + i.ToString()]);
+                        var Comprimento = int.Parse(Request["comprimento" + i.ToString()]);
+                    }
+                    catch (Exception)
+                    {
+                        return RedirectToAction("Create", "Pedido", new { error = "Informe todas as medidas!!!" });
+                    }
+                }
+                    db.ItemPedido.Add(item);
+                //  item.pedido_ = ped.IdPedido;
+                if (pedido.Itens == null)
+                {
+                    pedido.Itens = new List<ItemPedido>();
+                }
+                if (item.Quantidade > 99 || item.Quantidade < 1)
+                {
+                    return RedirectToAction("Create", "Pedido", new { error = "A quantidade deve estar entre 1 e 99!!!" });
+                }
+
+                Itens.Add(item);
+                pedido.Itens.AddRange(Itens);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                item.Medida = new List<Medida>();
+
+                for (int i = 1; i <= item.Quantidade; i++)
+                {                    
+                    Medida med = new Medida();
+
+                    var textoEncomenda = Request["encomenda" + i.ToString()];
+                    if (textoEncomenda == "sim")
+                    {
+                        med.encomenda = true;
+                    }
+                    else
+                    {
+                        med.encomenda = false;
+                    }
+
+
+                    med.itemPedido_ = item.IdItem;
+                    med.Idade = int.Parse(Request["idade" + i.ToString()]);
+                    med.Altura = int.Parse(Request["altura" + i.ToString()]);
+                    med.Ombro = int.Parse(Request["ombro" + i.ToString()]);
+                    med.Quadril = int.Parse(Request["quadril" + i.ToString()]);
+                    med.Torax = int.Parse(Request["torax" + i.ToString()]);
+                    med.Cintura = int.Parse(Request["cintura" + i.ToString()]);
+                    med.Comprimento = int.Parse(Request["comprimento" + i.ToString()]);
+
+                    item.Medida.Add(med);
+                    db.SaveChanges();
+                }
+
+                                
+                
+                return RedirectToAction("IndexCliente", "Cliente");
             }
 
             return View(pedido);
@@ -77,11 +182,19 @@ namespace Loja_Aline.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            var email = User.Identity.GetUserName();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Pedido pedido = db.Pedido.First(p => p.IdPedido == id);
+
+            if (pedido.Cliente.UserName != email && email != "cidaescolastico24@gmail.com")
+            {
+                return RedirectToAction("IndexCliente", "Cliente");
+            }
+
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -99,6 +212,14 @@ namespace Loja_Aline.Controllers
         {
             if (ModelState.IsValid)
             {
+                var texto = db.Destino.First(d => d.Ativacao == true).Estados;
+
+                if(!texto.Contains(Request["Estado"]))
+                {
+                    return RedirectToAction("Edit", "Pedido", new { id = pedido.IdPedido, error1 = "Desculpe. Nós não ainda estamos atendendo sua região" });
+                } 
+
+
                 pedido.Status = "Finalizado";
                 pedido.ValorPedido = Request["precototal"].Replace(".", ",");
                 pedido.Endereco.Estado = Request["Estado"];
@@ -111,14 +232,15 @@ namespace Loja_Aline.Controllers
                 }
                 catch (Exception)
                 {
-                    return View(pedido);
+                    return RedirectToAction("Edit", "Pedido", new { id = pedido.IdPedido, error2 = "Informe o numero da sua casa" });
                 }
                 pedido.Endereco.Rua = Request["Rua"];
                 pedido.Endereco.ValorFrete = Request["ValorFrete"];
 
                 db.Entry(pedido).State = EntityState.Modified;
                 db.Entry(pedido.Endereco).State = EntityState.Modified;
-                
+                db.SaveChanges();
+
                 Dados dados = new Dados();
                 var email = User.Identity.GetUserName();
                 dados.Email = email;
@@ -130,10 +252,10 @@ namespace Loja_Aline.Controllers
                 
                 dados.Valor = pedido.ValorPedido;
 
-                dados.MeuEmail = "leandroleanleo@gmail.com";
-                dados.MeuToken = "A37C25015C8446EE938DBB58D92F6BCF";
+                dados.MeuEmail = "leandro91luis@gmail.com";
+                dados.MeuToken = "ffd81aee-ddac-42c9-b6ff-d1cc90f8eab42ee5fca7432694c690d3819c29f774714bd9-609f-4b91-9704-6df2d8c0e2e4";
                 dados.TituloPagamento = "Pagamento";
-                dados.Referencia = "001";
+                dados.Referencia = "Roupas";
 
                 dados = sPagSeguro.GerarPagamento(dados);
                 
@@ -143,55 +265,59 @@ namespace Loja_Aline.Controllers
                 //Atualizar estoque
 
                 var m = 0;
-                foreach (var produto in db.Pedido.Include(p => p.Produtos).First(p => p.IdPedido == pedido.IdPedido).Produtos)
+                foreach (var item in db.Pedido.Include(p => p.Itens).First(p => p.IdPedido == pedido.IdPedido).Itens)
                 {                    
-                    foreach (var medida in produto.Medida)
+                    foreach (var medida in item.Medida)
                     {                        
-                        if (!medida.encomenda && medida.pedido_ == pedido.IdPedido)
+                        if (!medida.encomenda && medida.Item.pedido.IdPedido == pedido.IdPedido)
                         {
                             m++;
-                            if (m == produto.Medida.Count(med => med.pedido_ == pedido.IdPedido && !med.encomenda))
+                            if (m == item.Medida.Count(med => med.Item.pedido.IdPedido == pedido.IdPedido && !med.encomenda))
                             {
-                                medida.Produto.Estoque = medida.Produto.Estoque - m;
+                                medida.Item.produto.Estoque = medida.Item.produto.Estoque - m;
                                 m = 0;
-                                db.Entry(medida.Produto).State = EntityState.Modified;
+                                db.Entry(medida.Item).State = EntityState.Modified;
                                 db.SaveChanges();
                             }
                         }
                     }                    
                 }
 
-                //Atualizar status do produto atraves da atualização do estoque
-
-                foreach (var produto in pedido.Produtos)
-                {
-                    foreach (var OutrosPedidos in produto.Pedido)
+                //Atualizar status das medidas dos itens de acordo com a atualizacao do estoque
+                
+                    foreach (var OutrosPedidos in db.Pedido.ToList())
                     {
                         if (OutrosPedidos.Status == "Nao finalizado")
                         {
-                            foreach (var med in OutrosPedidos.Medidas)
+                            foreach (var item in OutrosPedidos.Itens)
                             {
-                                if (med.Produto.Estoque < med.Produto.Medida.Count(medi => medi.pedido_ == OutrosPedidos.IdPedido))
+                                // variavel que guarda quantidade de medidas que tem status compra
+                                var quantidade_compra = item.Medida.Count(q => q.encomenda == false);
+                                //variavel atualizada
+                                var quantidade_Atualizada = quantidade_compra - item.produto.Estoque;
+                                var i = 0;
+
+                                foreach (var medida in item.Medida)
                                 {
-                                    for (int i = 0; i < med.Produto.Estoque; i++)
-                                    {
-                                        try
+                                        i++;
+                                        medida.encomenda = true;
+                                        db.Entry(medida).State = EntityState.Modified;
+                                        db.SaveChanges();
+
+                                        if (i == item.Medida.Count)
                                         {
-                                            var medid = db.Medida.First(me => me.produto_ == produto.IdPrduto && me.encomenda == true);
-                                            medid.encomenda = false;
-                                            db.Entry(medid).State = EntityState.Modified;
-                                            db.SaveChanges();
+                                            for (int a = 0; a <= quantidade_Atualizada; a++)
+                                            {
+                                                medida.encomenda = false;
+                                                db.Entry(medida).State = EntityState.Modified;
+                                                db.SaveChanges();
+                                            }
                                         }
-                                        catch (Exception)
-                                        {
-                                            throw;
-                                        }
-                                    }
-                                }
+                                 }
                             }
                         }
                     }
-                }
+                
 
                 return RedirectToAction("IndexCliente", "Cliente");
             }
@@ -199,13 +325,21 @@ namespace Loja_Aline.Controllers
         }
 
         // GET: Pedido/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
+            var email = User.Identity.GetUserName();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Pedido pedido = db.Pedido.Find(id);
+            if (pedido.Cliente.UserName != email && email != "cidaescolastico24@gmail.com")
+            {
+                return RedirectToAction("IndexCliente", "Cliente");
+            }
+
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -216,6 +350,7 @@ namespace Loja_Aline.Controllers
         // POST: Pedido/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Pedido pedido = db.Pedido.Find(id);

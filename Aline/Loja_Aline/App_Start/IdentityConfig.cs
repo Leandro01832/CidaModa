@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Loja_Aline.Models;
+using System.Net.Mail;
 
 namespace Loja_Aline
 {
@@ -18,8 +19,29 @@ namespace Loja_Aline
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var envia = "leandroleanleo@gmail.com";
+            var user = "leandroleanleo@gmail.com";
+            var pass = "leandro01083832";
+
+            System.Net.NetworkCredential credencial = new System.Net.NetworkCredential(user, pass);
+
+            SmtpClient cliente = new SmtpClient()
+            {
+                 Host = "smtp.gmail.com",
+               // Host = "relay-hosting.secureserver.net",
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Port = 25,
+                EnableSsl = true,
+                Credentials = credencial
+            };
+
+            var mail = new MailMessage(envia, message.Destination);
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            return cliente.SendMailAsync(mail);
         }
     }
 
@@ -53,8 +75,8 @@ namespace Loja_Aline
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
+                RequiredLength = 8,
+                RequireNonLetterOrDigit = false,
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true,

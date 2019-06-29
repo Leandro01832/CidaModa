@@ -14,8 +14,7 @@ namespace business
         [Key]
         public int IdPedido { get; set; }
         public string ValorPedido { get; set; }
-        public virtual ICollection<Produto> Produtos { get; set; }
-        public virtual ICollection<Medida> Medidas { get; set; }
+        public virtual List<ItemPedido> Itens { get; set; }
         public virtual Endereco Endereco { get; set; }
         public virtual DateTime Datapedido { get; set; }
         public virtual Cliente Cliente { get; set; }

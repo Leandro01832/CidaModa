@@ -14,7 +14,6 @@ namespace business
         [Key]
         public int IdMedida { get; set; }
         public bool encomenda { get; set; }
-        [Range(2,10, ErrorMessage ="A idade deve ser entre 2 e 10 anos")]
         public Int32? Idade { get; set; }
         public Int32? Quadril { get; set; }
         public Int32? Ombro { get; set; }
@@ -22,13 +21,9 @@ namespace business
         public Int32? Altura { get; set; }
         public Int32? Cintura { get; set; }
         public Int32? Comprimento { get; set; }
-        [Display(Name = "Codigo do produto")]
-        public int produto_ { get; set; }
-        [ForeignKey("produto_")]
-        public virtual Produto Produto { get; set; }
-        public Int32? pedido_ { get; set; }
-        [ForeignKey("pedido_")]
-        public virtual Pedido Pedido { get; set; }
+        public int itemPedido_ { get; set; }
+        [ForeignKey("itemPedido_")]
+        public virtual ItemPedido Item { get; set; }
         
     }
 }
