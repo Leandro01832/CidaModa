@@ -49,7 +49,7 @@ namespace PagSeguro
                     DDD = txtDdd.Text,
                     NumeroTelefone = txtNumeroTelefone.Text,
                     Referencia = "001",
-                    Valor = txtValor.Text
+                    Valor = double.Parse(txtValor.Text)
                 };
                 // Enviar dados para o PagSeguro para gerar o pagamento
                 dadosEnvio = sPagSeguro.GerarPagamento(dadosEnvio);

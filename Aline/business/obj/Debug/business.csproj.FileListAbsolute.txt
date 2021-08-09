@@ -9,3 +9,15 @@ C:\Users\leand\documents\visual studio 2015\Projects\Aline\business\obj\Debug\bu
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\business\obj\Debug\business.pdb
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\business\obj\Debug\business.csproj.CoreCompileInputs.cache
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\business\obj\Debug\business.csprojResolveAssemblyReference.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\business.dll.config
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\business.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\business.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\EntityFramework.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\EntityFramework.SqlServer.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\EntityFramework.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\business\bin\Debug\EntityFramework.SqlServer.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\business\obj\Debug\business.csprojAssemblyReference.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\business\obj\Debug\business.csproj.CoreCompileInputs.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\business\obj\Debug\business.csproj.CopyComplete
+D:\codigo-github\e-commerce-cida-moda\Aline\business\obj\Debug\business.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\business\obj\Debug\business.pdb

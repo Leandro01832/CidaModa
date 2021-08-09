@@ -21,6 +21,5 @@ namespace business
         public string UserName { get; set; }
         public string Cpf { get; set; }
         public virtual Telefone Telefone { get; set; }
-        public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }

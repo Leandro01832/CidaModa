@@ -8,3 +8,13 @@ C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\P
 C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.pdb
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csprojResolveAssemblyReference.cache
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.CoreCompileInputs.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\bin\Debug\PagSeguro.dll.config
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\bin\Debug\PagSeguro.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\bin\Debug\PagSeguro.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.csprojAssemblyReference.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.frPrincipal.resources
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.Properties.Resources.resources
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.GenerateResource.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.CoreCompileInputs.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\PagSeguro\obj\Debug\PagSeguro.pdb

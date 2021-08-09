@@ -22,7 +22,7 @@ namespace Loja_Aline.Controllers
         [Authorize(Users = "cidaescolastico24@gmail.com")]
         public ActionResult Index()
         {
-            var cliente = db.Cliente.Include(c => c.Telefone).Include(c => c.Pedidos);
+            var cliente = db.Cliente.Include(c => c.Telefone);
             
             return View(cliente.ToList());
         }

@@ -4,14 +4,28 @@
     ViewBag.Title = "Details";
 }
 
+<h2>Details</h2>
 
-
-<h2>Detalhes</h2>
-
-<div class="jumbotron">
+<div>
     <h4>Pedido</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Endereco.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorPedido)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Datapedido)
         </dt>
@@ -20,125 +34,25 @@
             @Html.DisplayFor(model => model.Datapedido)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
     </dl>
-
-    @{
-        foreach (var item in Model.Itens)
-        { 
-            <div class="text-black-50">
-                Atenção!!! Se Algum produto estiver com o status como <label style="color:red;">STATUS ENCOMENDA</label>
-                significa que o produto não tem estoque. Portanto para adquirir o produto igual ou similar entre em contato com a empresa
-                clicando @Html.ActionLink("AQUI.", "Contact", "Home", null, null)
-                Se Algum produto estiver com o status como <label style="color:forestgreen">STATUS CARRINHO</label>
-                significa que o produto tem estoque. Portanto somente os produtos com o status  <label style="color:forestgreen">STATUS CARRINHO</label>
-                é que vão ser pagos atraves do site. Orientamos que o pedido seja finalizado o mais rapido possível para evitar a mudança de status <label style="color:forestgreen">STATUS CARRINHO</label>
-                para <label style="color:red;">STATUS ENCOMENDA</label> por causa das constantes mudanças no estoque.
-
-            </div>
-
-            <h2>produtos</h2>
-
-            foreach (var medida in item.Medida)
-            {
-                <p>                     
-                    @{
-                        if (medida.encomenda)
-                        {
-                            <label>Status do produto: <label style="color:red;">STATUS ENCOMENDA</label></label>
-                        }
-                        else
-                        {
-                            <label>Status do produto: <label style="color:forestgreen">STATUS CARRINHO</label></label>
-                        }
-                    }
-                </p>
-
-                <p><label>Codigo do produto: </label> @item.produto.IdPrduto</p>
-                    <p>
-                        <label>Imagem do produto: </label>
-                        <img src="@Url.Content(item.produto.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                    </p>
-                            <p><label>Preço da peça de roupa: </label> @item.produto.Preco</p>
-                            <p><label>Quantidate: </label> @item.Quantidade</p>
-                            
-                        if (Model.Status != "Finalizado")
-                        {                            
-                            @Html.ActionLink("remover item", "Delete", "ItemPedido", new { id = item.IdItem }, new { @class = "btn btn-success" })
-                        }
-                        @Html.ActionLink("visualizar medidas", "Details", "ItemPedido", new { id = item.IdItem }, new { @class = "btn btn-primary" })
-
-                            }
-                        }
-
-
-                        <hr />
-
-                        if (Model.Status != "Finalizado")
-                        {
-
-                            @Html.ActionLink("adicionar item", "Index", "Vestido", null, new { @class = "btn btn-success" })
-
-                            <div class="row">
-                                <div class="col-md-2">
-                                    @Html.TextBox("txtCep", null, new { @class = "form-control", placeholder = "Digite o Cep" })
-                                </div>
-                                <div class="col-md-2">
-                                    <button id="btnsend" class="btn btn-success">Consultar frete</button>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12" id="divValor">
-
-                                </div>
-                            </div>
-
-                                @Html.ActionLink("Fazer a compra ", "Edit", "Pedido", new { id = Model.IdPedido }, null)
-                        }
-
-
-
-    }
-
-
-
-    @section Scripts {
-        <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            $("#btn_dados").click(function () {
-                $("#Pedidos, #DadosPessoais").fadeOut("slow")
-                $("#DadosPessoais").fadeIn("slow");
-
-            });
-
-            $("#btn_pedidos").click(function () {
-                $("#Pedidos, #DadosPessoais").fadeOut("slow")
-                $("#Pedidos").fadeIn("slow");
-            });
-        });
-
-        $("#btnsend").click(function () {
-            $.ajax({
-                url: '@Url.Action("CorreiosCalc","Sales")',
-                type: 'GET',
-                contentType: 'application/json',
-                data: { cep: $("#txtCep").val() },
-                success: function (result) {
-                    var Vlfrete = parseFloat(result[0]) + 6;
-                    $("#divValor").html("<label> Valor do frete: R$ "
-                        + Vlfrete.toFixed(2)
-                        + "    Prazo de entrega " + result[1] + "</label> ")
-                },
-                error: function (xhr, exception) {
-                    alert("Erro ao calcular prazo!")
-                }
-            });
-        });
-
-        </script>
-    }
-
-
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPedido }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

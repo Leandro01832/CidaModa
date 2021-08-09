@@ -127,13 +127,13 @@ namespace Loja_Aline.Controllers
                         {
                             if(medida.Item.produto_ == produto.IdPrduto)
                             {
-                                if(medida.Item.produto.Estoque < medida.Item.Medida.Count(m => m.Item.pedido_ == pedido.IdPedido))
+                                if(medida.Item.produto.Estoque < medida.Item.produto.Medida.Count(m => m.Item.pedido_ == pedido.IdPedido))
                                 {
                                     for(int i = 0; i < medida.Item.produto.Estoque; i++)
                                     {
                                         try
                                         {
-                                            var medid = db.Medida.First(m => m.Item.produto_ == produto.IdPrduto && m.encomenda == true && m.Item.produto.Estoque < medida.Item.Medida.Count(medi => medi.Item.pedido_ == pedido.IdPedido));
+                                            var medid = db.Medida.First(m => m.Item.produto_ == produto.IdPrduto && m.encomenda == true && m.Item.produto.Estoque < medida.Item.produto.Medida.Count(medi => medi.Item.pedido_ == pedido.IdPedido));
                                             medid.encomenda = false;
                                             db.Entry(medid).State = EntityState.Modified;
                                             db.SaveChanges();

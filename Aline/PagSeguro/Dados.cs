@@ -21,7 +21,7 @@ namespace PagSeguro
         public string DDD { get; set; }
         [Display(Name ="Numero de telefone")]
         public string NumeroTelefone { get; set; }
-        public string Valor { get; set; }        
+        public double Valor { get; set; }        
         public string CodigoAcesso { get; set; }        
         public string Referencia { get; set; }        
         public string TituloPagamento { get; set; }

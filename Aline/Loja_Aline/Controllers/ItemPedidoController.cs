@@ -176,8 +176,8 @@ namespace Loja_Aline.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            ItemPedido itemPedido = db.ItemPedido.Include(m => m.Medida).First(i => i.IdItem == id);
-            foreach(var m in itemPedido.Medida.ToList())
+            ItemPedido itemPedido = db.ItemPedido.First(i => i.IdItem == id);
+            foreach(var m in itemPedido.produto.Medida.ToList())
             {
                 db.Medida.Remove(m);
                 db.SaveChanges();

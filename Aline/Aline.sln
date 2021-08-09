@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContextAline", "DataCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PagSeguro", "PagSeguro\PagSeguro.csproj", "{D422C267-8558-46EC-973C-0948B3449292}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2DFB8B29-4CCB-4EC0-AB49-5ED09C79372A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D422C267-8558-46EC-973C-0948B3449292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D422C267-8558-46EC-973C-0948B3449292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D422C267-8558-46EC-973C-0948B3449292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFB8B29-4CCB-4EC0-AB49-5ED09C79372A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFB8B29-4CCB-4EC0-AB49-5ED09C79372A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFB8B29-4CCB-4EC0-AB49-5ED09C79372A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFB8B29-4CCB-4EC0-AB49-5ED09C79372A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

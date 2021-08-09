@@ -26,7 +26,7 @@ namespace PagSeguro
                         {"currency", "BRL"},
                         {"itemId1", "0001"},
                         {"itemDescription1", dados.TituloPagamento},
-                        {"itemAmount1", dados.Valor.Replace(",",".")},
+                        {"itemAmount1", dados.Valor.ToString()},
                         {"itemQuantity1", "1"},
                         {"itemWeight1", "000"},
                         {"reference", "Ref " + dados.Referencia},

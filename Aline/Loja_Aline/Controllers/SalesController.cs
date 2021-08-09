@@ -22,7 +22,6 @@ namespace Loja_Aline.Controllers
             {
                 var email = User.Identity.GetUserName();
                 var cliente = db.Cliente.First(e => e.UserName == email);
-                var ped = cliente.Pedidos.First(p => p.IdPedido == id);
             }
             catch (Exception)
             {

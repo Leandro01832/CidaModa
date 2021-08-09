@@ -10,7 +10,7 @@ using System.Web;
 namespace business
 {
     [Table("Produto")]
-    public class Produto
+    public abstract class Produto
     {
         [Key]     
         [Display(Name ="Codigo do produto")]   
@@ -23,6 +23,6 @@ namespace business
         public Double Preco { get; set; }
         public virtual ICollection<Comentario> Comentario { get; set; }
         public virtual ICollection<Imagem> Imagens { get; set; }
-
+        public virtual ICollection<Medida> Medida { get; set; }
     }   
 }

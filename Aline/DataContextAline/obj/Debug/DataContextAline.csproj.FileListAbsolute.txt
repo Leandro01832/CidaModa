@@ -15,3 +15,21 @@ C:\Users\leand\documents\visual studio 2015\Projects\Aline\DataContextAline\bin\
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Debug\business.dll.config
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\bin\Debug\PagSeguro.dll.config
 C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\DataContextAline\obj\Debug\DataContextAline.csproj.CoreCompileInputs.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\DataContextAline.dll.config
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\DataContextAline.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\DataContextAline.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\business.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\EntityFramework.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\EntityFramework.SqlServer.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\PagSeguro.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\business.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\business.dll.config
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\PagSeguro.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\PagSeguro.dll.config
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\EntityFramework.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\bin\Debug\EntityFramework.SqlServer.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\obj\Debug\DataContextAline.csprojAssemblyReference.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\obj\Debug\DataContextAline.csproj.CoreCompileInputs.cache
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\obj\Debug\DataContextAline.csproj.CopyComplete
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\obj\Debug\DataContextAline.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\DataContextAline\obj\Debug\DataContextAline.pdb

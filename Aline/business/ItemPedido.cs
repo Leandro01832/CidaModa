@@ -20,6 +20,6 @@ namespace business
         public int produto_ { get; set; }
         [ForeignKey("produto_")]
         public virtual Produto produto { get; set; }
-        public virtual ICollection<Medida> Medida { get; set; }
+        
     }
 }

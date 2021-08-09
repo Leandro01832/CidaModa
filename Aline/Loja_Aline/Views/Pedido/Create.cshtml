@@ -1,127 +1,59 @@
 ﻿@model business.Pedido
 
 @{
-    ViewBag.Title = "AdicionarCarrinho";
-    var error = Request["error"];
-    var error2 = Request["error2"];
+    ViewBag.Title = "Create";
 }
 
-<div class="jumbotron">
-    <h2>Adicionar ao pedido</h2>
+<h2>Create</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Pedido</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.IdPedido)
-            @Html.HiddenFor(model => model.ValorPedido)
-            @Html.HiddenFor(model => model.Datapedido)
-            @Html.HiddenFor(model => model.Status)
-            @Html.HiddenFor(model => model.Itens)
-            @Html.HiddenFor(model => model.Cliente.IdCliente)
-
-
-
-            <div class="form-group">
-                <label class="control-label col-md-2">Código do produto:</label>
-                <div class="col-md-10">
-                    <input class="form-control" value="@ViewBag.produto_" type="text" id="roupa" name="roupa" readonly />
-                </div>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Pedido</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorPedido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorPedido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorPedido, "", new { @class = "text-danger" })
             </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2">estoque do produto:</label>
-                <div class="col-md-10">
-                    <input class="form-control" value="@ViewBag.estoque" type="text" id="estoque" name="estoque" readonly />
-                </div>
-            </div>
-
-            <p class="text-danger"> @error </p>
-            <div class="form-group">
-                <label class="control-label col-md-2">Quantidade:</label>
-                <div class="col-md-10">
-                    <input class="form-control" value="1" type="number" id="quantidade" name="quantidade" />
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-
-                    <input type="button" id="botao" value="Adicionar medidas">
-                </div>
-            </div>
-
-            <p class="text-danger">
-             @error2
-             </p>
-
-            <div id="Medidas" style="display:none;" class="">
-
-
-
-
-            </div>
-
-            <p><input type='submit' value='Adicionar produto ao pedido' class='btn btn-default' /> </p>
-
         </div>
-    }
 
-    <div>
-        @Html.ActionLink("Ir para a area do cliente", "IndexCliente", "Cliente", null, null)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Datapedido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Datapedido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Datapedido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClienteId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-</div>
-
-
-
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript"> 
-
-    $(document).ready(function () {
-        $("#botao").click(function () {
-            $("#Medidas").fadeIn("slow");
-
-            var v = $("#quantidade").val();
-            var e = $("#estoque").val();
-            var texto = "";
-
-            for (var i = 1; i <= v; i++)
-            {
-                texto = texto + "<p> medida nº " + i + ": </p>";
-
-                if (i > e)
-                {
-                    texto = texto + "<p><label>Status Encomenda da medida nº " + i + ":</label><input type='text' id='encomenda" + i + "' name='encomenda" + i + "' value='sim' readonly></p>";
-                }
-                else
-                {
-                    texto = texto + "<p><label>Status Encomenda da medida nº " + i + ":</label><input type='number' id='encomenda" + i + "' name='encomenda" + i + "' value='nao' readonly></p>";
-                }
-                texto = texto  +
-                    "<p><label>Idade:</label><input type='number' id='idade" + i + "' name='idade" + i + "'></p>" +
-                    "<p><label>Quadril:</label><input type='number' id='quadril" + i + "' name='quadril" + i + "'></p>" +
-                    "<p><label>Ombro:</label><input type='number' id='ombro" + i + "' name='ombro" + i + "'></p>" +
-                    "<p><label>Tórax:</label><input type='number' id='torax" + i + "' name='torax" + i + "'></p>" +
-                    "<p><label>Altura:</label><input type='number' id='altura" + i + "' name='altura" + i + "'></p>" +
-                    "<p><label>Cintura:</label><input type='number' id='cintura" + i + "' name='cintura" + i + "'></p>" +
-                    "<p><label>Comprimento:</label><input type='number' id='comprimento" + i + "' name='comprimento" + i + "'></p>";
-
-                $("#Medidas").html(texto);
-            }
-
-        });
-    });
-
-</script>
-
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
