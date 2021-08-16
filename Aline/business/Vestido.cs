@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace business
 {
     [Table("Vestido")]
     public class Vestido : Produto
-    {                
-        
+    {
+        public Vestido()
+        {
+
+        }
+
+        public Vestido(string nome) : base(nome)
+        {
+        }
     }
 }

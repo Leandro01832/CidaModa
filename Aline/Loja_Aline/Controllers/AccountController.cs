@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Loja_Aline.Models;
+using business;
+using DataContextAline;
 
 namespace Loja_Aline.Controllers
 {
@@ -155,12 +157,21 @@ namespace Loja_Aline.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    BD banco = new BD();
+                    var cliente = new Cliente
+                    {
+                        UserName = model.Email,
+                         Telefone = new Telefone(),
+                         Endereco = new Endereco()
+                    };
+                    banco.Cliente.Add(cliente);
+                    banco.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                      
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">AQUI</a>");
+                   // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                   // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                   // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">AQUI</a>");
 
                     return RedirectToAction("Index", "Home");
                 }

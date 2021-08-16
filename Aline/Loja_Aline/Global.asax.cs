@@ -11,7 +11,7 @@ using System.Web.Routing;
 
 namespace Loja_Aline
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -20,6 +20,8 @@ namespace Loja_Aline
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            UnityConfig.RegistraComponentes();
         }
 
         

@@ -1,8 +1,6 @@
 ﻿using business;
 using DataContextAline;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Tests
 {
@@ -13,51 +11,25 @@ namespace Tests
             BD db = new BD();
             db.Database.Log = GravaLog;
 
-            var cli = db.Cliente.Find(1);
+            Produto p1 = new Vestido("Sapato");
+            Produto p2 = new Daminha("Brinco");
+            Produto p3 = new Saia("Colar");
 
-            Produto p1 = db.Produto.Find(1);
-            Produto p2 = db.Produto.Find(2);
-            Produto p3 = db.Produto.Find(3);
+            p1.Preco = 89.90m;
+            p2.Preco = 59.90m;
+            p3.Preco = 279.90m;
 
-            var ped = new Pedido
-            {
-                Datapedido = DateTime.Now,
-                Status = "",
-                Endereco = new Endereco
-                {
-                    Bairro = "",
-                    Cep = 36774016,
-                    Cidade = "Cataguases",
-                    Estado = "Mg",
-                    Numero = 117,
-                    Rua = "Rua Joaquim Augusto de Almeida",
-                    ValorFrete = ""
-                },
-                Itens = new List<ItemPedido>
-                  {
-                      new ItemPedido{ produto_ = p1.IdPrduto, Quantidade = 3, produto = p1 },
-                      new ItemPedido{ produto_ = p1.IdPrduto, Quantidade = 3, produto = p2 },
-                      new ItemPedido{ produto_ = p1.IdPrduto, Quantidade = 3, produto = p3 }
-                  },
-                Cliente = cli,
-                ClienteId = cli.IdCliente.ToString()
+            p1.Estoque = 10;
+            p2.Estoque = 10;
+            p3.Estoque = 10;
 
-
-            };
-            double valor = 0;
-            var valores = ped.Itens.Select(i => i.produto.Preco * i.Quantidade).ToList();
-            foreach (var item in valores)
-                valor += item;
-            ped.ValorPedido += double.Parse(valor.ToString("F2"));
-
-            db.Pedido.Add(ped);
+            db.Produto.Add(p1);
+            db.Produto.Add(p2);
+            db.Produto.Add(p3);
 
             db.SaveChanges();
 
-            Console.WriteLine("Ok");
-
             Console.Read();
-
         }
 
         public static void GravaLog(string sql)

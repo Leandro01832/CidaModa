@@ -209,3 +209,15 @@ D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\obj\Debug\Loja_Aline.cspr
 D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\obj\Debug\Loja_Aline.csproj.CopyComplete
 D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\obj\Debug\Loja_Aline.dll
 D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\obj\Debug\Loja_Aline.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\System.Threading.Tasks.Extensions.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Abstractions.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Container.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Mvc.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\WebActivatorEx.dll
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\System.Threading.Tasks.Extensions.xml
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Abstractions.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Container.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Mvc.pdb
+D:\codigo-github\e-commerce-cida-moda\Aline\Loja_Aline\bin\Unity.Mvc.xml

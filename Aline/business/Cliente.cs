@@ -10,7 +10,12 @@ namespace business
 {
     [Table("Cliente")]
     public class Cliente
-    {    
+    {
+        public Cliente()
+        {
+
+        }
+
         [Key]    
         public int IdCliente { get; set; }
         [Display(Name ="Primeiro nome")]
@@ -21,5 +26,6 @@ namespace business
         public string UserName { get; set; }
         public string Cpf { get; set; }
         public virtual Telefone Telefone { get; set; }
+        public virtual Endereco Endereco { get; set; }
     }
 }
