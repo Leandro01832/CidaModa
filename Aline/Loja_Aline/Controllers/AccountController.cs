@@ -11,6 +11,9 @@ using Microsoft.Owin.Security;
 using Loja_Aline.Models;
 using business;
 using DataContextAline;
+using System.Net.Mail;
+using System.Text;
+using System.Net;
 
 namespace Loja_Aline.Controllers
 {
@@ -52,6 +55,24 @@ namespace Loja_Aline.Controllers
             {
                 _userManager = value;
             }
+        }
+        
+        public Task SendMarketingAsync(IdentityMessage message)
+        {
+            MailMessage mail = new MailMessage("leandro91luis@gmail.com", message.Destination);
+
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+            mail.SubjectEncoding = Encoding.GetEncoding("UTF-8");
+            mail.BodyEncoding = Encoding.GetEncoding("UTF-8");
+
+            SmtpClient cliente = new SmtpClient("smtp.gmail.com", 587);
+            cliente.UseDefaultCredentials = false;
+            cliente.Credentials = new NetworkCredential("leandro91luis@gmail.com", "Gasparzinho2020");
+            cliente.EnableSsl = true;
+
+            return cliente.SendMailAsync(mail);
         }
 
         //
@@ -169,9 +190,9 @@ namespace Loja_Aline.Controllers
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                      
-                   // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                   // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                   // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">AQUI</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">AQUI</a>");
 
                     return RedirectToAction("Index", "Home");
                 }

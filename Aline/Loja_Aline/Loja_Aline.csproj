@@ -242,6 +242,7 @@
     <Compile Include="Classes\UserHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -274,6 +275,7 @@
     <Content Include="arquivos_imagens\IMG-20190621-WA0002.jpg" />
     <Content Include="arquivos_imagens\IMG-20190621-WA0004.jpg" />
     <Content Include="arquivos_imagens\IMG-20190621-WA0005.jpg" />
+    <Content Include="arquivos_imagens\loader.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\figuras\0.png" />
@@ -322,7 +324,7 @@
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\carousel.js" />
-    <Content Include="Scripts\carrinho.js" />
+    <Content Include="Scripts\loader.js" />
     <Content Include="Scripts\Cep.js" />
     <Content Include="Scripts\cliente.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -412,6 +414,7 @@
     <Content Include="Views\Home\Cadastro.cshtml" />
     <Content Include="Views\Home\Carrinho.cshtml" />
     <Content Include="Views\Home\Resumo.cshtml" />
+    <Content Include="Views\Home\RetornaPedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

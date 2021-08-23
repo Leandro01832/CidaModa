@@ -12,37 +12,27 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Loja_Aline.Models;
 using System.Net.Mail;
+using System.Text;
+using System.Net;
 
 namespace Loja_Aline
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public  Task SendAsync(IdentityMessage message)
         {
-            var envia = "Leandro Luis da Silva";
-            var user = "";
-            var pass = "";
+            MailMessage mail = new MailMessage("leandro91luis@gmail.com", message.Destination);
 
-            System.Net.NetworkCredential credencial = new System.Net.NetworkCredential(user, pass);
-
-            SmtpClient cliente = new SmtpClient()
-            {
-                 Host = "smtp.gmail.com",
-               // Host = "relay-hosting.secureserver.net",
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Port = 25,
-                EnableSsl = true,
-                Credentials = credencial
-            };
-
-            var mail = new MailMessage(envia, message.Destination);
             mail.Subject = message.Subject;
             mail.Body = message.Body;
             mail.IsBodyHtml = true;
+            SmtpClient cliente = new SmtpClient("smtp.gmail.com", 587);
+            cliente.UseDefaultCredentials = false;
+            cliente.Credentials = new NetworkCredential("leandro91luis@gmail.com", "Gasparzinho2020");
+            cliente.EnableSsl = true;
 
-            return cliente.SendMailAsync(mail);
-        }
+            return  cliente.SendMailAsync(mail);
+        }        
     }
 
     public class SmsService : IIdentityMessageService

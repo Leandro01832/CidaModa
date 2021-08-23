@@ -21,13 +21,15 @@ namespace Loja_Aline.Controllers
         public IProdutoRepository ProdutoRepository { get; }
         public IPedidoRepository PedidoRepository { get; }
         public IClienteRepository ClienteRepository { get; }
+        public AccountController AccountController { get; }
 
         public HomeController(IProdutoRepository produtoRepository, IPedidoRepository pedidoRepository,
-            IClienteRepository clienteRepository)
+            IClienteRepository clienteRepository, AccountController accountController)
         {
             ProdutoRepository = produtoRepository;
             PedidoRepository = pedidoRepository;
             ClienteRepository = clienteRepository;
+            AccountController = accountController;
         }
 
         public ActionResult Index()
@@ -94,12 +96,34 @@ namespace Loja_Aline.Controllers
         {
             if (ModelState.IsValid)
             {
+                var urlPedido = "http://localhost:53443/Home/RetornaPedido/" + pedido.IdPedido;
                 pedido = await PedidoRepository.UpdateCadastroAsync(pedido);
                 pedido = await PedidoRepository.Get(pedido.IdPedido);
-                Request.Cookies.Remove(User.Identity.GetUserName());
+                string[] myCookies = Request.Cookies.AllKeys;
+                foreach (string cookie in myCookies)
+                {
+                    Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-16);
+                }
+                IdentityMessage msg = new IdentityMessage
+                {
+                    Body = "<p style='color:blue; background-color:yellow;'>" +
+                    $" N° Pedido - {pedido.IdPedido.ToString()} <a href='{urlPedido}'> visualizar pedido <a/>." +
+                    $" Agradecemos pela sua prefêrencia. <p/>" +
+                    "<p style='color:red; background-color:yellow;'> Volte sempre. Assinado Cida Modas sz sz sz sz <p/>" +
+                    "<img src='https://cdn.ecvol.com/s/loja.anatuori.com/produtos/ligia-vestido-festa-longo-evase-ombro-a-ombro-com-alcas-saia-plissada-madrinha-casamento-formatura-cor-marsala/m/0.jpg?v=1' />",
+                    Subject = "Pedido confirmado.",
+                    Destination = User.Identity.GetUserName()
+                };
+                await AccountController.SendMarketingAsync(msg);
                 return View(pedido);
             }
             return RedirectToAction("Cadastro");
+        }
+
+        public async Task<ActionResult> RetornaPedido(int id)
+        {
+            Pedido pedido = await PedidoRepository.Get(id);   
+            return View(pedido);
         }
 
         [HttpPost]
@@ -126,7 +150,6 @@ namespace Loja_Aline.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult CorreiosCalc(long cep)
         {
-
             string nCdEmpresa = string.Empty;
             string sDsSenha = string.Empty;
             string nCdServico = "41106";
@@ -158,7 +181,5 @@ namespace Loja_Aline.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
